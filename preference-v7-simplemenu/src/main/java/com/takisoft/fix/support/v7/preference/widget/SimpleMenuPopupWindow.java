@@ -32,7 +32,6 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * in Material Design.
  */
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPopupWindow extends PopupWindow {
 
     public static final int POPUP_MENU = 0;
@@ -219,11 +218,11 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         setWidth(width);
         setHeight(WRAP_CONTENT);
         setAnimationStyle(R.style.Animation_SimpleMenuCenter);
-        setElevation(elevation[DIALOG]);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) setElevation(elevation[DIALOG]);
 
         super.showAtLocation(parent, Gravity.CENTER_VERTICAL, 0, 0);
 
-        getContentView().post(new Runnable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) getContentView().post(new Runnable() {
             @Override
             public void run() {
                 int width = getContentView().getWidth();
@@ -256,7 +255,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
      * @param width Measured width of this window
      */
     private void showPopupMenu(View anchor, View container, int width, int extraMargin) {
-        final boolean rtl = container.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        final boolean rtl = Build.VERSION.SDK_INT <= 17 ||
+                container.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
 
         final int index = Math.max(0, mSelectedIndex);
         final int count = mEntries.length;
@@ -330,7 +330,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         setWidth(width);
         setHeight(height);
-        setElevation(elevation);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) setElevation(elevation);
         setAnimationStyle(R.style.Animation_SimpleMenuCenter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -352,6 +352,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
             startLeft = centerX + width - unit;
             startRight = centerX + width;
         }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
 
         animStartRect = new Rect(startLeft, startTop, startRight, startBottom);
 

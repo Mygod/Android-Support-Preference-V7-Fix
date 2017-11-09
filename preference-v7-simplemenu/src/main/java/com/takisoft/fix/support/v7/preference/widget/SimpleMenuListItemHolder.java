@@ -9,7 +9,6 @@ import android.widget.CheckedTextView;
 import static com.takisoft.fix.support.v7.preference.widget.SimpleMenuPopupWindow.DIALOG;
 import static com.takisoft.fix.support.v7.preference.widget.SimpleMenuPopupWindow.HORIZONTAL;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuListItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public CheckedTextView mCheckedTextView;

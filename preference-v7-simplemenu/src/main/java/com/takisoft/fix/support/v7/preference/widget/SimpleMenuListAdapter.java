@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.takisoft.fix.support.v7.preference.simplemenu.R;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuListAdapter extends RecyclerView.Adapter<SimpleMenuListItemHolder> {
 
     private SimpleMenuPopupWindow mWindow;

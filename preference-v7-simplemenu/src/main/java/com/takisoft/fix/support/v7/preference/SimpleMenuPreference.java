@@ -21,7 +21,6 @@ import com.takisoft.fix.support.v7.preference.widget.SimpleMenuPopupWindow;
  * On pre-Lollipop, it will fallback {@link ListPreference}.
  */
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPreference extends ListPreference {
 
     private View mAnchor;
@@ -33,7 +32,7 @@ public class SimpleMenuPreference extends ListPreference {
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? 0 : R.attr.simpleMenuPreferenceStyle);
+        this(context, attrs, R.attr.simpleMenuPreferenceStyle);
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyle) {
@@ -43,10 +42,6 @@ public class SimpleMenuPreference extends ListPreference {
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyleAttr,
                               int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
 
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SimpleMenuPreference, defStyleAttr, defStyleRes);
@@ -69,11 +64,6 @@ public class SimpleMenuPreference extends ListPreference {
 
     @Override
     protected void onClick() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            super.onClick();
-            return;
-        }
-
         if (getEntries() == null || getEntries().length == 0) {
             return;
         }
@@ -94,10 +84,6 @@ public class SimpleMenuPreference extends ListPreference {
     public void setEntries(@NonNull CharSequence[] entries) {
         super.setEntries(entries);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
-
         mPopupWindow.requestMeasure();
     }
 
@@ -109,10 +95,6 @@ public class SimpleMenuPreference extends ListPreference {
     @Override
     public void onBindViewHolder(PreferenceViewHolder view) {
         super.onBindViewHolder(view);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
 
         mItemView = view.itemView;
         mAnchor = view.itemView.findViewById(android.R.id.empty);
